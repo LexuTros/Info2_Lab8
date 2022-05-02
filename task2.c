@@ -95,22 +95,44 @@ struct TreeNode* delete(struct TreeNode* root, int val){
     return root;
 }
 
+void printTree(struct TreeNode* root){
+    if (root == NULL) {return;}
+    if (root->left != NULL)
+    {
+        printf("%d -- %d\n", root->val, root->left->val);
+        printTree(root->left);
+    }
+    if (root->right != NULL)
+    {
+        printf("%d -- %d\n", root->val, root->right->val);
+        printTree(root->right);
+    }
+}
+
 int main(){
 
     root = insert(root, 4);
     root = insert(root, 3);
     root = insert(root, 5);
     root = insert(root, 2);
+    root = insert(root, 8);
+    root = insert(root, 1);
+    root = insert(root, 6);
+    root = insert(root, 12);
+    root = insert(root, 34);
+    root = insert(root, 9);
 
     printf("%d", root->val);
     printf("%d", root->left->val);
     printf("%d", root->right->val);
-    printf("%d", root->left->left->val);
+    printf("%d\n", root->left->left->val);
 
     test = search(root, 3);
 
     printf("%d", test->val);
-    printf("%d", test->left->val);
+    printf("%d\n", test->left->val);
+
+    printTree(root);
 
     return 0;
 }
