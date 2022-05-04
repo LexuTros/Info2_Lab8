@@ -20,7 +20,8 @@ struct TreeNode* insert(struct TreeNode* root, int val){
     }
     else
     {
-        if (val <= root->val){
+        if (val == root->val) {return root;}
+        else if (val < root->val){
             root->left = insert(root->left, val);}
         else{
             root->right = insert(root->right, val);}
