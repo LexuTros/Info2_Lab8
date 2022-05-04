@@ -20,7 +20,8 @@ struct TreeNode* insert(struct TreeNode* root, int val){
     }
     else
     {
-        if (val <= root->val){
+        if (val == root->val) {return root;}
+        else if (val < root->val){
             root->left = insert(root->left, val);}
         else{
             root->right = insert(root->right, val);}
@@ -109,10 +110,52 @@ void printTree(struct TreeNode* root){
     }
 }
 
+int inOrderTwArrayBuild(struct TreeNode* root, int A[], int n){
+    if (root != NULL)
+    {
+        n = inOrderTwArrayBuild(root->left, A, n);
+        A[n] = root->val;
+        n++;
+        n = inOrderTwArrayBuild(root->right, A, n);
+    }
+    return n;
+}
 
+
+struct TreeNode* buildBalancedTree(struct TreeNode* root, int A[], int first, int last){
+    if (first > last) {return root;}
+    else {
+        int m = first + (last - first)/2;
+        root = insert(root, A[m]);
+        root = buildBalancedTree(root, A, first, m-1);
+        root = buildBalancedTree(root, A, m+1, last);
+    }
+    return root;
+}
 
 int main(){
+    struct TreeNode* balanced = NULL;
+    int A[9999];
+    int n = 0;
 
-    printf("%d", 9/2);
+    root = insert(root, 4);
+    root = insert(root, 3);
+    root = insert(root, 5);
+    root = insert(root, 2);
+    root = insert(root, 8);
+    root = insert(root, 1);
+    root = insert(root, 6);
+    root = insert(root, 12);
+    root = insert(root, 34);
+    root = insert(root, 9);
+    root = insert(root, 1);
+
+    printTree(root);
+
+    n = inOrderTwArrayBuild(root, A, n);
+    balanced = buildBalancedTree(balanced, A, 0, n-1);
+
+    printTree(balanced);
+    
     return 0;
 }
